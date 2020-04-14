@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="style.css">
+    <title>Covid19 Statistics</title>
+</head>
+<body>
+    
+    <div id="global">
+        
+
+    </div>
+
+    <div id="nigeria">
+        
+
+    </div>
+
+    <div id="output">
+        
+
+    </div>
+
+    <script>
+       
+            
+            getdetails()
+      
+
+    
+            fetch('https://api.covid19api.com/summary')
+            .then(function(response){
+                return (response.json());
+            })
+            .then(function(data){
+                let global = '<h2 class="text-center">Covid19 Global Statistics</h2>';
+                let input = data.Global;
+                    global += `
+                   
+                    <div class="container">
+                    <div class="row" >
+                    <div class="col-md-12 ">
+                    <table class="table table-striped "border="5">
+                        <thead>
+                            <tr style="font-size: small">
+                            <th scope="col">New Confirmed</th>
+                            <th scope="col">Total Confirmed</th>
+                            <th scope="col">New Deaths</th>
+                            <th scope="col">Total Deaths</th>
+                            <th scope="col">New Recovered</th>
+                            <th scope="col">Total Recovered</th>
+                            
+                            
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="font-size: x-small">
+                            <td>${input.NewConfirmed} </td>
+                            <td>${input.TotalConfirmed}</td>
+                            <td>${input.NewDeaths}</td>
+                            <td>${input.TotalDeaths}</td>
+                            <td>${input.NewRecovered}</td>
+                            <td>${input.TotalRecovered}</td>
+                            
+                            </tr>
+                           
+                        </tbody>
+                    </table>
+                
+                    </div>
+                    </div>
+                    </div>
+                    
+                    `;
+                    document.getElementById('global').innerHTML = global;
+                });
+                
+                
+          
+                fetch('https://api.covid19api.com/live/country/nigeria')
+            .then(function(response){
+                return (response.json());
+            })
+            .then(function(data){
+                let nigeria = '<h2 class="text-center">Covid19 Nigeria Statistics</h2>';
+                let inputs = data[0];
+                    nigeria += `
+                   
+                    <div class="container">
+                    <div class="row" >
+                    <div class="col-md-12 ">
+                    <table class="table   table-striped" border="5">
+                        <thead>
+                            <tr style="font-size: small">
+                            <th scope="col">Country</th>
+                            <th scope="col">CountryCode</th>
+                            <th scope="col">Lat</th>
+                            <th scope="col">Lon</th>
+                            <th scope="col">Confirmed</th>
+                            <th scope="col">Deaths</th>
+                            <th scope="col">Recovered</th>
+                            <th scope="col">Active</th>
+                            <th scope="col">Date</th>
+                            
+                            
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="font-size: x-small">
+                            <td>${inputs.Country} </td>
+                            <td>${inputs.CountryCode}</td>
+                            <td>${inputs.Lat}</td>
+                            <td>${inputs.Lon}</td>
+                            <td>${inputs.Confirmed}</td>
+                            <td>${inputs.Deaths}</td>
+                            <td>${inputs.Recovered}</td>
+                            <td>${inputs.Active}</td>
+                            <td>${inputs.Date}</td>
+                            
+                            </tr>
+                           
+                        </tbody>
+                    </table>
+                
+                    </div>
+                    </div>
+                    </div>
+                    
+                    `;
+                    document.getElementById('nigeria').innerHTML = nigeria;
+                });
+
+
+
+        function getdetails(){
+            fetch('https://api.covid19api.com/summary')
+            .then(function(response){
+                return (response.json());
+            })
+            .then(function(data){
+                let output = '<h2 class="text-center">Covid19 Statistics</h2>';
+                data.Countries.forEach(function(user){
+                    output += `
+                   
+                    <div class="container">
+                    <div class="row" >
+                    <div class="col-md-12 col-sm-12">
+                    <table class="table table-striped" border="5">
+
+                    
+                        <thead>
+                            <tr style="font-size: small">
+                            <th scope="col">Country</th>
+                            <th scope="col">Country Code</th>
+                            <th scope="col">Slug</th>
+                            <th scope="col">New Confirmed</th>
+                            <th scope="col">TotalConfirmed</th>
+                            <th scope="col">New Deaths</th>
+                            <th scope="col">Total Deaths</th>
+                            <th scope="col">New Recovered</th>
+                            <th scope="col">Total Recovered</th>                  
+                            <th scope="col">Date</th>
+                            
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="font-size: x-small">
+                            <td>${user.Country} </td>
+                            <td>${user.CountryCode}</td>
+                            <td>${user.Slug}</td>
+                            <td>${user.NewConfirmed}</td>
+                            <td>${user.TotalConfirmed}</td>
+                            <td>${user.NewDeaths}</td>
+                            <td>${user.TotalDeaths}</td>
+                            <td>${user.NewRecovered}</td>
+                            <td>${user.TotalRecovered}</td>                       
+                            <td>${user.Date}</td>
+                            </tr>
+                           
+                        </tbody>
+                    </table>
+                
+                    </div>
+                    </div>
+                    </div>
+                    
+                    `;
+                });
+                document.getElementById('output').innerHTML = output;
+            })
+        }
+
+        
+    </script>
+
+<script type="text/javascript" src="js/jquery.js"></script>
+<script src="js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -5,18 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css"/>
     <link rel="stylesheet" href="style.css">
-    
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.jqueryui.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/rowgroup/1.1.1/css/rowGroup.jqueryui.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
     <title>Covid19 Statistics</title>
 </head>
 <body>
-    <div class="container-fluid">
-    <h1 class="text-center">COVID19 STATISTICS MADE BY CALEB OKOGBE</h1>
-    </div>
-
-    <div class="container img image-fluid">
+    <div class="container">
         <div class="row">
             
     <div class="col-md-6 ">
@@ -190,7 +183,12 @@
                         </thead>
 
                         
-                       
+                        <thead>
+                            <tr style="font-size: small">
+                                <th scope="col">Date</th>
+                                <td>${inputs.Date}</td>
+                            </tr>
+                        </thead>
                     
                     `;
                     document.getElementById('nigeria').innerHTML = nigeria;
@@ -207,13 +205,17 @@
                 let output = '';
 
                 $(document).ready(function() {
-    $('#example').DataTable( {
-        order: [[2, 'asc']],
-        rowGroup: {
-            dataSrc: 2
-        }
+    var table = $('#example').DataTable();
+ 
+    $('#example tbody').on( 'click', 'tr', function () {
+        $(this).toggleClass('selected');
     } );
-} );         
+ 
+    $('#button').click( function () {
+        alert( table.rows('.selected').data().length +' row(s) selected' );
+    } );
+} );
+                
                 data.Countries.forEach(function(user){
                     output += `
                    
@@ -246,7 +248,5 @@
 <script src="js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.20/js/dataTables.jqueryui.min.js"></script>
-<script src="https://cdn.datatables.net/rowgroup/1.1.1/js/dataTables.rowGroup.min.js"></script>
 </body>
 </html>
